@@ -399,7 +399,7 @@ namespace wbExample.Controllers
                     for (int i = 0; i < massiv.Length; i++)
                     {
                         int l = massiv[i].Length;
-                        if (massiv[i] != "_")
+                        if (massiv[i] != "_" && massiv[i]!= "-")
                         {
                             if (massiv[i] == "dDown")
                                 massiv[i] = Differents.DdownDay.Day.ToString();
