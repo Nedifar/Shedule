@@ -456,5 +456,18 @@ namespace wbExample.Controllers
             }
             return Ok();
         }
+
+        [HttpGet]
+        [Route("allIzm")]
+        private async Task<ActionResult<string>> ListIzm(string delete)
+        {
+            string s = "";
+            using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
+            {
+                
+                s = reader.ReadToEnd();
+            }
+            return Ok(s);
+        }
     }
 }
