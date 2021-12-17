@@ -428,5 +428,33 @@ namespace wbExample.Controllers
             Differents.DateOut(selectedDate);
             return "bad";
         }
+
+        [HttpGet]
+        [Route("addFormat/{format}")]
+        private async Task<ActionResult> AddNewFormat(string format)
+        {
+            using (var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/Formats.txt", true, System.Text.Encoding.Default))
+            {
+                writer.WriteLine(format);
+                writer.Close();
+            }
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("DeleteIzm/{delete}")]
+        private async Task<ActionResult> DeleteIzm(string delete)
+        {
+            using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
+            {
+                delete += ".xls";
+                string s = reader.ReadToEnd();
+                s.Replace(delete, "");
+                using var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/Formats.txt", true, System.Text.Encoding.Default);
+                writer.WriteLine(s);
+                writer.Close();
+            }
+            return Ok();
+        }
     }
 }
