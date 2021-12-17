@@ -23,6 +23,7 @@ namespace wbExample.Controllers
         DateTime selectedDate;
         public LastDanceController()
         {
+
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
         }
         [HttpGet("getnew")]
