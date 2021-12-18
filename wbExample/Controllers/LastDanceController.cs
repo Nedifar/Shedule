@@ -431,7 +431,7 @@ namespace wbExample.Controllers
 
         [HttpGet]
         [Route("addFormat/{format}")]
-        private async Task<ActionResult> AddNewFormat(string format)
+        public async Task<ActionResult> AddNewFormat(string format)
         {
             using (var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/Formats.txt", true, System.Text.Encoding.Default))
             {
@@ -443,13 +443,14 @@ namespace wbExample.Controllers
 
         [HttpGet]
         [Route("DeleteIzm/{delete}")]
-        private async Task<ActionResult> DeleteIzm(string delete)
+        public async Task<ActionResult> DeleteIzm(string delete)
         {
             using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
             {
                 string s = reader.ReadToEnd();
-                s.Replace(delete +".xlsx", "");
-                using var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/Formats.txt", true, System.Text.Encoding.Default);
+                s = s.Replace(delete +".xlsx", "");
+                reader.Close();
+                using var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt", false, System.Text.Encoding.Default);
                 writer.WriteLine(s);
                 writer.Close();
                 System.IO.File.Delete($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/{delete}.xlsx");
@@ -460,7 +461,7 @@ namespace wbExample.Controllers
 
         [HttpGet]
         [Route("allIzm")]
-        private async Task<ActionResult<string>> ListIzm(string delete)
+        public async Task<ActionResult<string>> ListIzm(string delete)
         {
             string s = "";
             using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
