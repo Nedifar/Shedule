@@ -447,12 +447,13 @@ namespace wbExample.Controllers
         {
             using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
             {
-                delete += ".xls";
                 string s = reader.ReadToEnd();
-                s.Replace(delete, "");
+                s.Replace(delete +".xlsx", "");
                 using var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/Formats.txt", true, System.Text.Encoding.Default);
                 writer.WriteLine(s);
                 writer.Close();
+                System.IO.File.Delete($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/{delete}.xlsx");
+                System.IO.File.Delete($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/{delete}.xls");
             }
             return Ok();
         }
@@ -464,7 +465,6 @@ namespace wbExample.Controllers
             string s = "";
             using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
             {
-                
                 s = reader.ReadToEnd();
             }
             return Ok(s);
