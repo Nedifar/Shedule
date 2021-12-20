@@ -399,7 +399,7 @@ namespace wbExample.Controllers
                     for (int i = 0; i < massiv.Length; i++)
                     {
                         int l = massiv[i].Length;
-                        if (massiv[i] != "_" && massiv[i]!= "-")
+                        if (massiv[i] != "_" && massiv[i]!= "-" && massiv[i]!= "1")
                         {
                             if (massiv[i] == "dDown")
                                 massiv[i] = Differents.DdownDay.Day.ToString();
@@ -413,7 +413,21 @@ namespace wbExample.Controllers
                         url += massiv[i];
                     }
                     WebClient webClient = new WebClient();
-                    webClient.DownloadFile($"https://oksei.ru/files/{url}.xls", $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{Differents.upMonth.Substring(0, 3)}.xls");
+                    try
+                    {
+                        webClient.DownloadFile($"https://oksei.ru/files/{url}.xls", $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{Differents.upMonth.Substring(0, 3)}.xls");
+                    }
+                    catch
+                    {
+                        try
+                        {
+                            webClient.DownloadFile($"https://oksei.ru/files/raspisanie/{url}.xls", $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{Differents.upMonth.Substring(0, 3)}.xls");
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
                     var workbook = new Aspose.Cells.Workbook(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{Differents.upMonth.Substring(0, 3)}.xls");
                     workbook.Save(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{Differents.upMonth.Substring(0, 3)}.xlsx", Aspose.Cells.SaveFormat.Xlsx);
                     Differents._workbook = new XLWorkbook(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{Differents.upMonth.Substring(0, 3)}.xlsx");
