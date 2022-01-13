@@ -43,7 +43,7 @@ namespace AgendaApp
                     lbSecondDay.Text = dateSchedule.upDay.ToString();
                     lbFirstMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DupDay.Month);
                     lbSecondMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DdownDay.Month);                  
-                    var resDate = await http.GetAsync(new Uri($"http://drankmin-001-site1.htempurl.com/api/lastdance/getdate/{dpDateSchedule.Date.ToShortDateString()}"));
+                    var resDate = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getdate/{dpDateSchedule.Date.ToShortDateString()}"));
                     resDate.EnsureSuccessStatusCode();
                     pGroup_SelectedIndexChanged(null, null);
                     resDate.EnsureSuccessStatusCode();
@@ -77,7 +77,7 @@ namespace AgendaApp
                         loading.IsVisible = true;
                         loading.IsAnimationPlaying = true;
                         cvSchedule.IsVisible = false;
-                        var resGroup = await http.GetAsync(new Uri($"http://drankmin-001-site1.htempurl.com/api/lastdance/getgroup/{pGroup.SelectedItem.ToString()}"));
+                        var resGroup = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getgroup/{pGroup.SelectedItem.ToString()}"));
                         resGroup.EnsureSuccessStatusCode();
                         var groupShedule = resGroup.Content.ReadAsAsync<List<DayWeek>>();
                         List<DayWeek> list = await groupShedule;
@@ -109,7 +109,7 @@ namespace AgendaApp
             {
                 try
                 {
-                    var resGroupList = await http.GetAsync(new Uri($"http://drankmin-001-site1.htempurl.com/api/lastdance/getgrouplist/"));
+                    var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getgrouplist/"));
                     resGroupList.EnsureSuccessStatusCode();
                     pGroup.ItemsSource = await resGroupList.Content.ReadAsAsync<List<string>>();
                     break;
@@ -136,7 +136,7 @@ namespace AgendaApp
                     if (NewSheduleBt.Source.ToString() == "gg.png")
                     {
                         string s = "Новое расписание!!!";
-                        var resultNewWeek = await http.GetAsync(new Uri($"http://lastDance.com/api/lastdance/getnewWeek/{s}"));
+                        var resultNewWeek = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastDance.com/api/lastdance/getnewWeek/{s}"));
                         resultNewWeek.EnsureSuccessStatusCode();
                         pGroup.SelectedIndex = -1;
                         dpDateSchedule.Date = DateTime.Today.AddDays(5);
@@ -144,7 +144,7 @@ namespace AgendaApp
                     }
                     else
                     {
-                        var resNew = await http.GetAsync(new Uri($"http://drankmin-001-site1.htempurl.com/api/lastdance/getdate/{DateTime.Now.ToShortDateString()}"));
+                        var resNew = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getdate/{DateTime.Now.ToShortDateString()}"));
                         resNew.EnsureSuccessStatusCode();
                         NewSheduleBt.Source = "gg.png";
                         pGroup.SelectedIndex = -1;
@@ -170,7 +170,7 @@ namespace AgendaApp
             {
                 try
                 {
-                    var resnew = await http.GetAsync(new Uri($"http://drankmin-001-site1.htempurl.com/api/lastdance/getnew"));
+                    var resnew = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getnew"));
                     resnew.EnsureSuccessStatusCode();
                     var res = resnew.Content.ReadAsStringAsync();
                     if (res.ToString() == "есть новое расписание")
