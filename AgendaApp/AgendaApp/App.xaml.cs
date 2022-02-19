@@ -10,7 +10,7 @@ namespace AgendaApp
         {
             InitializeComponent();
 
-            MainPage = new Pages.TabbedPag();
+            MainPage = new NavigationPage(new Pages.TabbedPag());
         }
 
         protected override void OnStart()

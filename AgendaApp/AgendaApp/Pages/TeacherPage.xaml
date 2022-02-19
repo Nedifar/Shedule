@@ -13,6 +13,7 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <ImageButton x:Name="btSettings" Clicked="Settings_Clicked" BorderColor="Transparent" BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="Start" WidthRequest="20" Margin="25, 0, 20, 40" Grid.Column="1" Source="img_272299.png" />
             <ImageButton x:Name="NewSheduleBt" Clicked="ImageButton_Clicked" IsVisible="false" BorderColor="Transparent" BackgroundColor="Transparent" Margin="20" Grid.Column="1" Source="gg.png" />
             <StackLayout Grid.ColumnSpan="2" Margin="0,-40,0,0" HorizontalOptions="Center" VerticalOptions="Center">
                 <Label TextColor="White" FontSize="40" HorizontalTextAlignment="Center">

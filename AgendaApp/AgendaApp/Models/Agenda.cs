@@ -52,9 +52,9 @@ namespace AgendaApp.Models
                     shedule[i].Date = "\n08:30 - 10:00";
                     shedule[i + 1].Date = "\n10:10 - 11:40";
                     shedule[i + 2].Date = "\n12:00 - 13:30";
-                    shedule[i + 3].Date = "\n13:50 - 15:20";
-                    shedule[i + 4].Date = "\n15:30 - 17:00";
-                    shedule[i + 5].Date = "\n17:05 - 18:35";
+                    shedule[i + 3].Date = "\n14:00 - 15:30";
+                    shedule[i + 4].Date = "\n15:50 - 17:10";
+                    shedule[i + 5].Date = "\n17:15 - 18:45";
                     i += 6;
                 }
                 else
@@ -62,10 +62,10 @@ namespace AgendaApp.Models
                     shedule[i].Date = "\n08:30 - 10:00";
                     shedule[i + 1].Date = "\n10:10 - 11:40";
                     shedule[i + 2].Date = "\n12:00 - 13:30";
-                    shedule[i + 3].Date = "\n13:40 - 14:25";
-                    shedule[i + 4].Date = "\n14:45 - 16:15";
-                    shedule[i + 5].Date = "\n16:35 - 18:05";
-                    shedule[i + 6].Date = "\n18:15 - 19:45";
+                    shedule[i + 3].Date = "\n13:40 - 14:10";
+                    shedule[i + 4].Date = "\n14:20 - 15:50";
+                    shedule[i + 5].Date = "\n16:00 - 17:30";
+                    shedule[i + 6].Date = "\n17:35 - 19:05";
                     i += 7;
                 }
             }

@@ -45,14 +45,14 @@ namespace AgendaApp.Pages
             VersionTracking.Track();
             var currentVersion = VersionTracking.CurrentVersion;
             WebClient web = new WebClient();//Для использования WebClient подключи System.Net 
-            string vars = web.DownloadString("https://bsite.net/Greorgi/updateMobile/mobileVersion.txt");
+            string vars = web.DownloadString("https://bsite.net/Greorgiii/updateMobile/mobileVersion.txt");
             string link;
             if(vars != currentVersion)
             {
                 bool b = await DisplayAlert("Warning", "App have new update. Download?", "Ok", "Cancel");
                 if (b)
                 {
-                    //link = web.DownloadString("https://bsite.net/Greorgi/updateMobile/mobileLink.txt");
+                    //link = web.DownloadString("https://bsite.net/Greorgiii/updateMobile/mobileLink.txt");
                     //web.DownloadFile(link, $"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)}com.companyname.agendaapp.apk");
                     web.DownloadFileCompleted += (s, e) =>
                      {
@@ -86,7 +86,7 @@ namespace AgendaApp.Pages
                 using (HttpClient client = new HttpClient())
                 {
                     string result = await DisplayPromptAsync("Scaning", "Please, enter password.(ggwp)");
-                    var resulti = await client.GetAsync($"https://bsite.net/Greorgi/api/lastdance/getSignData/{result}");
+                    var resulti = await client.GetAsync($"https://bsite.net/Greorgiii/api/lastdance/getSignData/{result}");
                     if (resulti.StatusCode == HttpStatusCode.BadRequest)
                     {
                         await DisplayAlert("Imposter", "А вот неть, а вот тебя я не пущу, с уважением", "OK");

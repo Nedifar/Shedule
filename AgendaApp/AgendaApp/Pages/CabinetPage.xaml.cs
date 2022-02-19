@@ -1,11 +1,13 @@
 ﻿using AgendaApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,10 +21,10 @@ namespace AgendaApp.Pages
         public CabinetPage()
         {
             InitializeComponent();
-            GetGroupList();
             dpDateSchedule.Date = DateSave.date.SelectedDate;
             dpDateSchedule_DateSelected(null, null);
-            tryingNewSchedule();
+            //tryingNewSchedule();
+            GetGroupList();
             this.BindingContext = this;
         }
 
@@ -41,9 +43,9 @@ namespace AgendaApp.Pages
                     lbSecondDay.Text = dateSchedule.upDay.ToString();
                     lbFirstMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DupDay.Month);
                     lbSecondMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DdownDay.Month);                    
-                    var resDate = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getdate/{dpDateSchedule.Date}"));
+                    //var resDate = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getdate/{dpDateSchedule.Date}"));
                     pCabinet_SelectedIndexChanged(null, null);
-                    resDate.EnsureSuccessStatusCode();
+                    //resDate.EnsureSuccessStatusCode();
                     cvSchedule.IsVisible = true;
                     loading.IsAnimationPlaying = false;
                     loading.IsVisible = false;
@@ -73,7 +75,7 @@ namespace AgendaApp.Pages
                         loading.IsVisible = true;
                         loading.IsAnimationPlaying = true;
                         cvSchedule.IsVisible = false;
-                        var resGroup = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getcabinet/{pCabinet.SelectedItem.ToString()}"));
+                        var resGroup = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getcabinet/{pCabinet.SelectedItem.ToString().Replace("★", "")}"));
                         resGroup.EnsureSuccessStatusCode();
                         var groupShedule = resGroup.Content.ReadAsAsync<List<DayWeek>>();
                         List<DayWeek> list = await groupShedule;
@@ -105,9 +107,21 @@ namespace AgendaApp.Pages
             {
                 try
                 {
-                    var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getcabinetslist/"));
+                    var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getcabinetslist/"));
                     resGroupList.EnsureSuccessStatusCode();
-                    pCabinet.ItemsSource = await resGroupList.Content.ReadAsAsync<List<string>>();
+                    ObservableCollection<string> vs = await resGroupList.Content.ReadAsAsync<ObservableCollection<string>>();
+                    pCabinet.ItemsSource = vs;
+                    if (Preferences.Get("loadCabinet", false))
+                    {
+                        string res = Preferences.Get("cabinetSelected", "");
+                        if (res != "")
+                        {
+                            vs.Insert(0, res);
+                            pCabinet.SelectedItem = res;
+                        }
+                    }
+
+
                     break;
                 }
                 catch
@@ -139,7 +153,7 @@ namespace AgendaApp.Pages
                     }
                     else
                     {
-                        var resNew = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getdate/{DateTime.Now.ToShortDateString()}"));
+                        var resNew = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getdate/{DateTime.Now.ToShortDateString()}"));
                         resNew.EnsureSuccessStatusCode();
                         NewSheduleBt.Source = "gg.png";
                         pCabinet.SelectedIndex = -1;
@@ -159,32 +173,37 @@ namespace AgendaApp.Pages
                 }
             }
         }
-        private async void tryingNewSchedule()
+
+        private async void Settings_Clicked(object sender, EventArgs e)
         {
-            while (5 > 3)
-            {
-                try
-                {
-                    var resnew = await http.GetAsync(new Uri($"https://bsite.net/Greorgi/api/lastdance/getnew"));
-                    resnew.EnsureSuccessStatusCode();
-                    var res = resnew.Content.ReadAsStringAsync();
-                    if (res.ToString() == "есть новое расписание")
-                    {
-                        NewSheduleBt.IsVisible = true;
-                    }
-                    break;
-                }
-                catch
-                {
-                    //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
-                    //if (resault)
-                    //{
-                        continue;
-                    //}
-                    //else
-                    //    Environment.Exit(0);
-                }
-            }
+            await Navigation.PushAsync(new Settings());
         }
+        //private async void tryingNewSchedule()
+        //{
+        //    while (5 > 3)
+        //    {
+        //        try
+        //        {
+        //            var resnew = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getnew"));
+        //            resnew.EnsureSuccessStatusCode();
+        //            var res = resnew.Content.ReadAsStringAsync();
+        //            if (res.ToString() == "есть новое расписание")
+        //            {
+        //                NewSheduleBt.IsVisible = true;
+        //            }
+        //            break;
+        //        }
+        //        catch
+        //        {
+        //            //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
+        //            //if (resault)
+        //            //{
+        //                continue;
+        //            //}
+        //            //else
+        //            //    Environment.Exit(0);
+        //        }
+        //    }
+        //}
     }
 }
