@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace AgendaApp.Droid
 {
-    [Activity(Label = "lastDance", Icon = "@drawable/hh", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "lastDanceXPath", Icon = "@drawable/hh", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

@@ -25,6 +25,9 @@ namespace AgendaApp.Pages
             dpDateSchedule.Date = DateSave.date.SelectedDate;
             dpDateSchedule_DateSelected(null, null);
             GetGroupList();
+            bool rel = Preferences.Get("haveWeek", false);
+            if (rel == true)
+                NewSheduleBt.IsVisible = true;
             this.BindingContext = this;
         }
 
@@ -43,7 +46,7 @@ namespace AgendaApp.Pages
                     lbSecondDay.Text = dateSchedule.upDay.ToString();
                     lbFirstMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DupDay.Month);
                     lbSecondMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DdownDay.Month);
-                    //var resDate = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getdate/{dpDateSchedule.Date}"));
+                    //var resDate = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getdate/{dpDateSchedule.Date}"));
                     pCabinet_SelectedIndexChanged(null, null);
                     //resDate.EnsureSuccessStatusCode();
                     cvSchedule.IsVisible = true;
@@ -75,7 +78,7 @@ namespace AgendaApp.Pages
                         loading.IsVisible = true;
                         loading.IsAnimationPlaying = true;
                         cvSchedule.IsVisible = false;
-                        var resGroup = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getcabinet/{pCabinet.SelectedItem.ToString().Replace("★", "")}"));
+                        var resGroup = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getcabinet/{pCabinet.SelectedItem.ToString().Replace("★", "")}"));
                         resGroup.EnsureSuccessStatusCode();
                         var groupShedule = resGroup.Content.ReadAsAsync<List<DayWeek>>();
                         List<DayWeek> list = await groupShedule;
@@ -107,7 +110,7 @@ namespace AgendaApp.Pages
             {
                 try
                 {
-                    var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getcabinetslist/"));
+                    var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getcabinetslist/"));
                     resGroupList.EnsureSuccessStatusCode();
                     ObservableCollection<string> vs = await resGroupList.Content.ReadAsAsync<ObservableCollection<string>>();
                     pCabinet.ItemsSource = vs;
@@ -124,13 +127,7 @@ namespace AgendaApp.Pages
                 }
                 catch
                 {
-                    //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
-                    //if (resault)
-                    //{
                     continue;
-                    //}
-                    //else
-                    //    Environment.Exit(0);
                 }
             }
         }
@@ -151,7 +148,7 @@ namespace AgendaApp.Pages
                     }
                     else
                     {
-                        var resNew = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getdate/{DateTime.Now.ToShortDateString()}"));
+                        var resNew = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getdate/{DateTime.Now.ToShortDateString()}"));
                         resNew.EnsureSuccessStatusCode();
                         NewSheduleBt.Source = "gg.png";
                         pCabinet.SelectedIndex = -1;
@@ -182,7 +179,7 @@ namespace AgendaApp.Pages
             {
                 try
                 {
-                    var resnew = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getnew"));
+                    var resnew = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getnew"));
                     resnew.EnsureSuccessStatusCode();
                     var res = resnew.Content.ReadAsStringAsync();
                     if (res.ToString() == "есть новое расписание")

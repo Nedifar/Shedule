@@ -88,20 +88,20 @@ namespace AgendaApp.Pages
             sp.IsVisible = false;
             using (var http = new HttpClient())
             {
-                var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getgrouplist/"));
+                var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getgrouplist/"));
                 resGroupList.EnsureSuccessStatusCode();
                 groupList = await resGroupList.Content.ReadAsAsync<ObservableCollection<string>>();
                 groupList.Insert(0, "Не выбрано");
                 pickGroup.ItemsSource = groupList;
                 pickGroup.SelectedIndex = 0;
-                var resTeachList = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getteachersList"));
+                var resTeachList = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getteachersList"));
                 resTeachList.EnsureSuccessStatusCode();
                 teacherList = await resTeachList.Content.ReadAsAsync<ObservableCollection<string>>();
                 teacherList.Insert(0, "Не выбрано");
                 pickTeacher.ItemsSource = teacherList;
                 pickTeacher.SelectedIndex = 0;
 
-                var resCabinetList = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getcabinetslist/"));
+                var resCabinetList = await http.GetAsync(new Uri($"https://bsite.net/GrishaMasha//api/lastdance/getcabinetslist/"));
                 resCabinetList.EnsureSuccessStatusCode();
                 cabinetList = await resCabinetList.Content.ReadAsAsync<ObservableCollection<string>>();
                 cabinetList.Insert(0, "Не выбрано");
