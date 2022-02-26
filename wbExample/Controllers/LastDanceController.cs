@@ -31,7 +31,6 @@ namespace wbExample.Controllers
         {
             try
             {
-
                 var workbook = new Aspose.Cells.Workbook($"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.AddDays(7).Day}_{Differents.DupDay.AddDays(7).Day}.xls");
             }
             catch
@@ -115,40 +114,6 @@ namespace wbExample.Controllers
             {
                 FormatsRaspisanie();
             }
-            //else
-            //{
-            //    if (Differents.upMonth == Differents.downMonth)
-            //    {
-            //        string trim = Differents.upMonth.Substring(0, 3);
-            //        try
-            //        {
-            //            WebClient webClient = new WebClient();
-            //            webClient.DownloadFile($"https://oksei.ru/files/raspisanie/{trim}_{Differents.DdownDay.Day}_{Differents.DupDay.Day}.xls", $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{trim}.xls");
-            //        }
-            //        catch
-            //        {
-            //            try
-            //            {
-            //                WebClient webClient = new WebClient();
-            //                webClient.DownloadFile($"https://oksei.ru/files/raspisanie/{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{trim}.xls", $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{trim}.xls");
-            //            }
-            //            catch
-            //            {
-            //                WebClient webClient = new WebClient();
-            //                webClient.DownloadFile($"https://oksei.ru/files/raspisanie/{Differents.DdownDay.Day}_{Differents.DupDay.Day}.xls", $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{trim}.xls");
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        string trim = Differents.upMonth.Substring(0, 3);
-            //        string url = $"https://oksei.ru/files/raspisanie/{Differents.downMonth}_{Differents.DdownDay.Day}_{Differents.DupDay.Day}{trim}.xls";
-            //        Differents.webClient.DownloadFile(url, $"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.DdownDay.Day}_{Differents.DupDay.Day}_{trim}.xls");
-            //    }
-            //    var workbook = new Aspose.Cells.Workbook(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{trim1}.xls");
-            //    workbook.Save(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{trim1}.xlsx", Aspose.Cells.SaveFormat.Xlsx);
-            //    Differents._workbook = new XLWorkbook(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{trim1}.xlsx");
-            //}
             Differents.workSheet = Differents._workbook.Worksheets.First();
             List<DayWeekClass> days = new List<DayWeekClass>();
             Differents.DownloadFeatures(time);
@@ -172,19 +137,23 @@ namespace wbExample.Controllers
                         result = result.Remove(0, result.Length - 3).Trim();
                         if (result != "-" && result != "" && result.Length > 1)
                         {
-                            foreach (string output in dataforcb)
+                            Regex regex = new Regex("[0-9]{2,3}");
+                            if (regex.IsMatch(result))
                             {
-                                if (output == result)
+                                foreach (string output in dataforcb)
                                 {
-                                    exit = false;
-                                    break;
+                                    if (output == result)
+                                    {
+                                        exit = false;
+                                        break;
+                                    }
                                 }
+                                if (exit)
+                                {
+                                    dataforcb.Add(result);
+                                }
+                                exit = true;
                             }
-                            if (exit)
-                            {
-                                dataforcb.Add(result);
-                            }
-                            exit = true;
                         }
                     }
                 }
@@ -228,19 +197,23 @@ namespace wbExample.Controllers
                         }
                         if (result != "-" && result != "")
                         {
-                            foreach (string output in dataforcb)
+                            Regex regex = new Regex(@"[а-яА-Я]+\s[А-Я]{1}\.[А-Я]{1}\.?$");
+                            if (regex.IsMatch(result))
                             {
-                                if (output == result)
+                                foreach (string output in dataforcb)
                                 {
-                                    exit = false;
-                                    break;
+                                    if (output == result)
+                                    {
+                                        exit = false;
+                                        break;
+                                    }
                                 }
+                                if (exit)
+                                {
+                                    dataforcb.Add(result);
+                                }
+                                exit = true;
                             }
-                            if (exit)
-                            {
-                                dataforcb.Add(result);
-                            }
-                            exit = true;
                         }
                     }
                 }
@@ -399,17 +372,15 @@ namespace wbExample.Controllers
                     for (int i = 0; i < massiv.Length; i++)
                     {
                         int l = massiv[i].Length;
-                        if (massiv[i] != "_" && massiv[i]!= "-" && massiv[i]!= "1")
-                        {
-                            if (massiv[i] == "dDown")
-                                massiv[i] = Differents.DdownDay.Day.ToString();
-                            else if (massiv[i] == "dUp")
-                                massiv[i] = Differents.DupDay.Day.ToString();
-                            else if (massiv[i].Substring(0, 1) == "d")
-                                massiv[i] = Differents.downMonth.Substring(0, l);
-                            else
-                                massiv[i] = Differents.upMonth.Substring(0, l);
-                        }
+
+                        if (massiv[i] == "dDown")
+                            massiv[i] = Differents.DdownDay.Day.ToString();
+                        else if (massiv[i] == "dUp")
+                            massiv[i] = Differents.DupDay.Day.ToString();
+                        else if (massiv[i].Substring(0, 1) == "d")
+                            massiv[i] = Differents.downMonth.Substring(0, l);
+                        else if (massiv[i].Substring(0, 1) == "u")
+                            massiv[i] = Differents.upMonth.Substring(0, l);
                         url += massiv[i];
                     }
                     WebClient webClient = new WebClient();
@@ -431,15 +402,15 @@ namespace wbExample.Controllers
                     var workbook = new Aspose.Cells.Workbook(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{Differents.upMonth.Substring(0, 3)}.xls");
                     workbook.Save(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{Differents.upMonth.Substring(0, 3)}.xlsx", Aspose.Cells.SaveFormat.Xlsx);
                     Differents._workbook = new XLWorkbook(@$"{AppDomain.CurrentDomain.BaseDirectory}Raspisanie/_{Differents.downDay}_{Differents.upDay}_{Differents.upMonth.Substring(0, 3)}.xlsx");
-                    Differents.DateOut(selectedDate);
                     return "good";
                 }
+
                 catch
                 {
                     continue;
                 }
+
             }
-            Differents.DateOut(selectedDate);
             return "bad";
         }
 
@@ -462,7 +433,7 @@ namespace wbExample.Controllers
             using (var reader = new StreamReader($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt"))
             {
                 string s = reader.ReadToEnd();
-                s = s.Replace(delete +".xlsx", "");
+                s = s.Replace(delete + ".xlsx", "");
                 reader.Close();
                 using var writer = new StreamWriter($"{AppDomain.CurrentDomain.BaseDirectory}/Raspisanie/allizm.txt", false, System.Text.Encoding.Default);
                 writer.WriteLine(s);

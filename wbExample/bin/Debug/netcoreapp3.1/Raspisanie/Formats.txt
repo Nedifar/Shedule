@@ -1,0 +1,8 @@
+uuu _ dDown _ dUp
+dDown _ dUp _ uuu
+dDown _ dUp
+ddd _ dDown _ dUp _ uuu
+dDown _ ddd _ dUp u
+dDown - dUp _ uuu
+dDown _ dUp _
+dDown _ 10 _ 02
