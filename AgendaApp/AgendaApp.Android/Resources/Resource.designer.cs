@@ -8382,13 +8382,16 @@ namespace AgendaApp.Droid
 			public const int teach = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int tooltip_frame_dark = 2131165309;
+			public const int tenor = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int tooltip_frame_light = 2131165310;
+			public const int tooltip_frame_dark = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int xamarin_logo = 2131165311;
+			public const int tooltip_frame_light = 2131165311;
+			
+			// aapt resource value: 0x7F070080
+			public const int xamarin_logo = 2131165312;
 			
 			static Drawable()
 			{

@@ -22,9 +22,9 @@ namespace AgendaApp.Pages
         {
             InitializeComponent();
             //Preferences.Set("cabinetSelected", "");
+            loading.IsAnimationPlaying = true;
 
             load();
-            loadInFile();
         }
 
         private void Picker_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,6 +85,7 @@ namespace AgendaApp.Pages
         }
         private async void load()
         {
+            sp.IsVisible = false;
             using (var http = new HttpClient())
             {
                 var resGroupList = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getgrouplist/"));
@@ -143,18 +144,8 @@ namespace AgendaApp.Pages
                 pickCabinet.ItemsSource = cabinetList;
                 pickCabinet.SelectedIndex = 1;
             }
-        }
-        private void loadInFile()
-        {
-            //if(!File.Exists($"{Environment.GetFolderPath(Environment.SpecialFolder.Personal)}nedifarSettings.txt"))
-            //{
-            //    File.Create($"{Environment.GetFolderPath(Environment.SpecialFolder.Personal)}nedifarSettings.txt");
-            //}
-            //using(var stream = new StreamReader($"{Environment.GetFolderPath(Environment.SpecialFolder.Personal)}nedifarSettings.txt"))
-            //{
-            //    if(stream.)
-            //}
-
+            sp.IsVisible = true;
+            loading.IsVisible = false;
         }
 
         private void checkGroup_CheckedChanged(object sender, CheckedChangedEventArgs e)

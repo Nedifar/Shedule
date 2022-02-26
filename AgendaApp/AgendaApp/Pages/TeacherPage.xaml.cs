@@ -21,9 +21,9 @@ namespace AgendaApp.Pages
         public TeacherPage()
         {
             InitializeComponent();
+            //tryingNewSchedule();
             dpDateSchedule.Date = DateSave.date.SelectedDate;
             dpDateSchedule_DateSelected(null, null);
-            //tryingNewSchedule();
             GetGroupList();
             this.BindingContext = this;
         }
@@ -56,7 +56,7 @@ namespace AgendaApp.Pages
                     //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
                     //if (resault)
                     //{
-                        continue;
+                    continue;
                     //}
                     //else
                     //    Environment.Exit(0);
@@ -93,7 +93,7 @@ namespace AgendaApp.Pages
                     //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
                     //if (resault)
                     //{
-                        continue;
+                    continue;
                     //}
                     //else
                     //    Environment.Exit(0);
@@ -111,14 +111,14 @@ namespace AgendaApp.Pages
                     resGroupList.EnsureSuccessStatusCode();
                     ObservableCollection<string> vs = await resGroupList.Content.ReadAsAsync<ObservableCollection<string>>();
                     pCabinet.ItemsSource = vs;
+                    string res = Preferences.Get("teacherSelected", "");
+                    if (res != "")
+                    {
+                        vs.Insert(0, res);
+                    }
                     if (Preferences.Get("loadTeacher", false))
                     {
-                        string res = Preferences.Get("teacherSelected", "");
-                        if (res != "")
-                        {
-                            vs.Insert(0, res);
-                            pCabinet.SelectedItem = res;
-                        }
+                        pCabinet.SelectedItem = res;
                     }
                     break;
                 }
@@ -127,7 +127,7 @@ namespace AgendaApp.Pages
                     //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
                     //if (resault)
                     //{
-                        continue;
+                    continue;
                     //}
                     //else
                     //    Environment.Exit(0);
@@ -164,7 +164,7 @@ namespace AgendaApp.Pages
                     //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
                     //if (resault)
                     //{
-                        continue;
+                    continue;
                     //}
                     //else
                     //    Environment.Exit(0);
@@ -176,32 +176,26 @@ namespace AgendaApp.Pages
         {
             await Navigation.PushAsync(new Pages.Settings());
         }
-        //private async void tryingNewSchedule()
-        //{
-        //    while (5 > 3)
-        //    {
-        //        try
-        //        {
-        //            var resnew = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getnew"));
-        //            resnew.EnsureSuccessStatusCode();
-        //            var res = resnew.Content.ReadAsStringAsync();
-        //            if (res.ToString() == "есть новое расписание")
-        //            {
-        //                NewSheduleBt.IsVisible = true;
-        //            }                                                                                                                             //В разработке
-        //            break;
-        //        }
-        //        catch
-        //        {
-        //            //bool resault = await DisplayAlert("Connection Failed", "Check your internet connection!", "Try again", "Cancel");
-        //            //if (resault)
-        //            //{
-        //                continue;
-        //            //}
-        //            //else
-        //            //    Environment.Exit(0);
-        //        }
-        //    }
-        //}
+        private async void tryingNewSchedule()
+        {
+            while (5 > 3)
+            {
+                try
+                {
+                    var resnew = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getnew"));
+                    resnew.EnsureSuccessStatusCode();
+                    var res = resnew.Content.ReadAsStringAsync();
+                    if (res.ToString() == "есть новое расписание")
+                    {
+                        NewSheduleBt.IsVisible = true;
+                    }
+                    break;
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+        }
     }
 }

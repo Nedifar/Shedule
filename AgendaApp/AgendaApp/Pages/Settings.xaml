@@ -3,32 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgendaApp.Pages.Settings">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Start">
-            <Label Text="Настройки" FontSize="20"
+        <StackLayout>
+            <Image x:Name="loading" IsVisible="true" Source="tenor.gif" />
+            <StackLayout VerticalOptions="Start" IsVisible="false" x:Name="sp">
+                <Label Text="Настройки" FontSize="20"
                 HorizontalOptions="CenterAndExpand" />
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Избранная группа" Margin="0, 0, 5, 0"/>
-                <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="Picker_SelectedIndexChanged" x:Name="pickGroup"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
-                <CheckBox x:Name="checkGroup" CheckedChanged="checkGroup_CheckedChanged"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal" Margin="0, 5">
-                <Label Text="Избранный кабинет" Margin="0, 0, 5, 0"/>
-                <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="PickerCav_SelectedIndexChanged" x:Name="pickCabinet"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
-                <CheckBox x:Name="checkCabinet" CheckedChanged="checkCabinet_CheckedChanged"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Избранный преподаватель" Margin="0, 0, 5, 0"/>
-                <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="PickerTeach_SelectedIndexChanged" x:Name="pickTeacher"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
-                <CheckBox x:Name="checkTeacher" CheckedChanged="checkTeacher_CheckedChanged"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Избранная группа" Margin="0, 0, 5, 0"/>
+                    <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="Picker_SelectedIndexChanged" x:Name="pickGroup"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
+                    <CheckBox x:Name="checkGroup" CheckedChanged="checkGroup_CheckedChanged"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0, 5">
+                    <Label Text="Избранный кабинет" Margin="0, 0, 5, 0"/>
+                    <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="PickerCav_SelectedIndexChanged" x:Name="pickCabinet"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
+                    <CheckBox x:Name="checkCabinet" CheckedChanged="checkCabinet_CheckedChanged"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Избранный преподаватель" Margin="0, 0, 5, 0"/>
+                    <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="PickerTeach_SelectedIndexChanged" x:Name="pickTeacher"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
+                    <CheckBox x:Name="checkTeacher" CheckedChanged="checkTeacher_CheckedChanged"/>
+                </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
