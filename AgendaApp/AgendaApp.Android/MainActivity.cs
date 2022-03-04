@@ -6,6 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Distribute;
 
 namespace AgendaApp.Droid
 {
@@ -16,7 +18,8 @@ namespace AgendaApp.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
+            Distribute.SetEnabledForDebuggableBuild(true);
+            AppCenter.Start("e7aa7329-25a0-490d-8287-7f1cc3f22b2c", typeof(Distribute));
             base.OnCreate(savedInstanceState);
             Xamarin.Forms.Forms.SetFlags("Expander_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

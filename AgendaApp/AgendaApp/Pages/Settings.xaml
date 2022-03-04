@@ -18,7 +18,7 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="0, 5">
                     <Label Text="Избранный кабинет" Margin="0, 0, 5, 0"/>
-                    <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="PickerCav_SelectedIndexChanged" x:Name="pickCabinet"/>
+                    <Picker Title="Кабинет" WidthRequest="160" SelectedIndexChanged="PickerCav_SelectedIndexChanged" x:Name="pickCabinet"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
@@ -26,7 +26,7 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Избранный преподаватель" Margin="0, 0, 5, 0"/>
-                    <Picker Title="Группа" WidthRequest="160" SelectedIndexChanged="PickerTeach_SelectedIndexChanged" x:Name="pickTeacher"/>
+                    <Picker Title="Преподаватель" WidthRequest="160" SelectedIndexChanged="PickerTeach_SelectedIndexChanged" x:Name="pickTeacher"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Выводить по умолчанию при запуске приложения?" Margin="0, 0, 5, 0"/>
