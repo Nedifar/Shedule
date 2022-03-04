@@ -41,8 +41,8 @@ namespace AgendaApp.Pages
                     dateSchedule.GetDate(dpDateSchedule.Date);
                     lbFirstDay.Text = dateSchedule.downDay.ToString();
                     lbSecondDay.Text = dateSchedule.upDay.ToString();
-                    lbFirstMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DupDay.Month);
-                    lbSecondMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DdownDay.Month);
+                    lbFirstMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DdownDay.Month);
+                    lbSecondMonth.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dateSchedule.DupDay.Month);
                     //var resDate = await http.GetAsync(new Uri($"https://bsite.net/Greorgii/api/lastdance/getdate/{dpDateSchedule.Date}"));
                     pCabinet_SelectedIndexChanged(null, null);
                     //resDate.EnsureSuccessStatusCode();
